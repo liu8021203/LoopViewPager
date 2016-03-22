@@ -1,0 +1,11 @@
+<resources>
+    <declare-styleable name="LoopViewPager">
+        <attr name="gravity" format="integer">
+            <enum name="left" value="0"></enum>
+            <enum name="center" value="1"></enum>
+            <enum name="right" value="2"></enum>
+        </attr>
+        <attr name="indicatorSpacing" format="dimension"></attr>
+    </declare-styleable>
+    <attr name="LoopViewPagerStyle" format="reference"></attr>
+</resources>
