@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.liu.loopviewpager.library'
+group='com.github.liu8021203'
 
 android {
     compileSdkVersion 23
