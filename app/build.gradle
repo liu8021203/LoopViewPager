@@ -32,5 +32,4 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile project(':library')
-    compile 'com.github.liu8021203:LoopViewPager:1.0'
 }
