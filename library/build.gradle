@@ -1,18 +1,23 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-//group='com.github.liu8021203'
 
 
+group='com.github.jcdream.loopviewpager'
+
+
+
+version="v1.0"
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+    resourcePrefix "loopviewpager__"
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName version
     }
     buildTypes {
         release {
@@ -30,69 +35,73 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.0'
 }
 
-//def siteUrl = 'https://github.com/liu8021203/LoopViewPager' // 项目的主页
-//def gitUrl = 'https://github.com/liu8021203/LoopViewPager.git' // Git仓库的url
-//group = "com.github.jcdream" // Maven Group ID for the artifact，一般填你唯一的包名
-//install {
-//    repositories.mavenInstaller {
-//        // This generates POM.xml with proper parameters
-//        pom {
-//            project {
-//                packaging 'aar'
-//                // Add your description here
-//                name 'Android LoopViewPager' //项目描述
-//                url siteUrl
-//                // Set your license
-//                licenses {
-//                    license {
-//                        name 'The Apache Software License, Version 2.0'
-//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id 'jcdream'    //填写的一些基本信息
-//                        name 'jcdream'
-//                        email 'liu8021203@gmail.com'
-//                    }
-//                }
-//                scm {
-//                    connection gitUrl
-//                    developerConnection gitUrl
-//                    url siteUrl
-//                }
-//            }
-//        }
-//    }
-//}
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//}
-//artifacts {
-//    archives javadocJar
-//    archives sourcesJar
-//}
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//bintray {
-//    user = properties.getProperty("bintray.user")
-//    key = properties.getProperty("bintray.apikey")
-//    configurations = ['archives']
-//    pkg {
-//        repo = "maven"
-//        name = "LoopViewPager"    //发布到JCenter上的项目名字
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = ["Apache-2.0"]
-//        publish = true
-//    }
-//}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name 'LoopViewPager'
+            description 'loopviewpager'
+            url 'https://github.com/liu8021203/LoopViewPager'
+
+            packaging 'aar'
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+            scm {
+                connection 'https://github.com/liu8021203/LoopViewPager.git'
+                developerConnection 'https://github.com/liu8021203/LoopViewPager.git'
+                url 'https://github.com/liu8021203/LoopViewPager'
+
+            }
+            developers {
+                developer {
+                    id 'jcdream'
+                    name 'liufeng'
+                    email 'liu8021203@163.com'
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+    publish = true //If version should be auto published after an upload
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'LoopViewPager'
+        userOrg = 'jcdream'
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/liu8021203/LoopViewPager'
+        vcsUrl = 'https://github.com/liu8021203/LoopViewPager.git'
+    }
+}
+
+
+
+
