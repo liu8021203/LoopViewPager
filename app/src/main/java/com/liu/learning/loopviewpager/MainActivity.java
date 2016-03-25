@@ -81,4 +81,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pager.stop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        pager.start();
+    }
 }
