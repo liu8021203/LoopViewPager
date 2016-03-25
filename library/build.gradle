@@ -7,7 +7,7 @@ group='com.github.jcdream.loopviewpager'
 
 
 
-version="v1.0"
+version="1.2"
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -61,7 +61,7 @@ install {
                 developer {
                     id 'jcdream'
                     name 'liufeng'
-                    email 'liu8021203@163.com'
+                    email 'liu8021203@gmail.com'
                 }
             }
         }
