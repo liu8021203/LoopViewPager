@@ -3,7 +3,6 @@ package com.liu.learning.library;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.PagerAdapter;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 实现可循环，可轮播的viewpager
+ * loopviewpager
  */
 @SuppressLint("NewApi")
 public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeListener {
@@ -116,6 +115,7 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
                             viewPager.setCurrentItem(position, true);
                             releaseTime = System.currentTimeMillis();
                         }
+                        handler.removeCallbacksAndMessages(null);
                         handler.postDelayed(runnable, time);
                     }
                 }
@@ -125,6 +125,7 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
                 {
                     if(imageViews.size() != 0)
                     {
+                        handler.removeCallbacksAndMessages(null);
                         handler.postDelayed(runnable, time);
                     }
                 }
@@ -136,10 +137,8 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
 
 
     /**
-     * 初始化viewpager
-     *
-     * @param views        要显示的views
-     * @param showPosition 默认显示位置
+     * init viewpager
+
      */
     public void setData(List<T> list, ImageListener listener) {
         this.listener = listener;
@@ -190,10 +189,9 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
         setIndicator(0);
 
         viewPager.setOffscreenPageLimit(3);
-        viewPager.addOnPageChangeListener(this);
         if(adapter == null)
         {
-
+            viewPager.addOnPageChangeListener(this);
             adapter = new ViewPagerAdapter();
             viewPager.setAdapter(adapter);
         }
@@ -201,11 +199,13 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
             adapter.notifyDataSetChanged();
         }
         viewPager.setCurrentItem(1);
-
+        if (isWheel) {
+            handler.postDelayed(runnable, time);
+        }
     }
 
     /**
-     * 设置指示器居中，默认指示器在右方
+     * set gravity
      */
     public void setIndicatorCenter() {
         LayoutParams params = new LayoutParams(
@@ -217,16 +217,14 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
     }
 
     /**
-     * 是否循环，默认不开启，开启前，请将views的最前面与最后面各加入一个视图，用于循环
-     *
-     * @param isCycle 是否循环
+     *isCycle
+     * @param isCycle
      */
     public void setCycle(boolean isCycle) {
         this.isCycle = isCycle;
     }
 
     /**
-     * 是否处于循环状态
      *
      * @return
      */
@@ -235,20 +233,16 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
     }
 
     /**
-     * 设置是否轮播，默认不轮播,轮播一定是循环的
-     *
+     * set wheel
      * @param isWheel
      */
     public void setWheel(boolean isWheel) {
         this.isWheel = isWheel;
-        isCycle = true;
-        if (isWheel) {
-            handler.postDelayed(runnable, time);
-        }
+        this.isCycle = true;
+
     }
 
     /**
-     * 是否处于轮播状态
      *
      * @return
      */
@@ -284,21 +278,13 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
         this.time = time;
     }
 
-    /**
-     * 刷新数据，当外部视图更新后，通知刷新数据
-     */
-    public void refreshData() {
-        if (adapter != null)
-            adapter.notifyDataSetChanged();
-    }
+
 
 
 
 
     /**
-     * 页面适配器 返回对应的view
-     *
-     * @author Yuedong Li
+     * adapter
      */
     private class ViewPagerAdapter extends PagerAdapter {
 
@@ -375,9 +361,8 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
 
 
     /**
-     * 设置指示器
-     *
-     * @param selectedPosition 默认指示器位置
+     * Indicator
+     * @param selectedPosition
      */
     private void setIndicator(int selectedPosition) {
         for (int i = 0; i < indicators.length; i++) {
@@ -407,6 +392,7 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
      */
     public void start()
     {
+        handler.removeCallbacksAndMessages(null);
         handler.postDelayed(runnable, time);
     }
 
@@ -427,9 +413,6 @@ public class LoopViewPager<T> extends RelativeLayout implements OnPageChangeList
 
         /**
          * 单击图片事件
-         *
-         * @param
-         * @param imageView
          */
         public void onImageClick(T data);
         public void initData(ImageView view, T t);
